@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pomodoro_Technique_app</string>
+    <string name="greet">Meowdy!</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
+</resources>
