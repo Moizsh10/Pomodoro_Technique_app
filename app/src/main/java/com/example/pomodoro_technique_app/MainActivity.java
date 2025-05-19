@@ -2,15 +2,21 @@ package com.example.pomodoro_technique_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.nio.file.Files;
 
 public class MainActivity extends AppCompatActivity {
     //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE;
@@ -134,6 +140,29 @@ public class MainActivity extends AppCompatActivity {
         startButton.setEnabled(true);
 
        timerReset = true;
+    }
+
+    public void readFileTest(View view) {
+        AssetManager assetManager = getAssets();
+        InputStream input;
+        int size = 0;
+        int readOutput = 0;
+        try {
+            input = assetManager.open("time_data.csv");
+            do {
+                size ++;
+                readOutput = input.read();
+            }while(readOutput != -1);
+            byte[] buffer = new byte[size];
+//            input.read(buffer);
+            input.close();
+
+//            String text = new String(buffer);
+            Log.d(TAG,"total number of chars is "+size);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
