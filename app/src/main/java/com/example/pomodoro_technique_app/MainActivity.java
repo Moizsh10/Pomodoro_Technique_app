@@ -145,20 +145,28 @@ public class MainActivity extends AppCompatActivity {
     public void readFileTest(View view) {
         AssetManager assetManager = getAssets();
         InputStream input;
-        int size = 0;
+        int size = -1;
         int readOutput = 0;
         try {
             input = assetManager.open("time_data.csv");
-            do {
+            while(readOutput != -1){
                 size ++;
                 readOutput = input.read();
-            }while(readOutput != -1);
-            byte[] buffer = new byte[size];
-//            input.read(buffer);
-            input.close();
+            }
 
-//            String text = new String(buffer);
+            input = assetManager.open("time_data.csv");
+            byte[] buffer = new byte[size];
+            input.read(buffer);
+            input.close();
+            String text = new String(buffer);
+
             Log.d(TAG,"total number of chars is "+size);
+            Log.d(TAG,text);
+
+            String[] timeData = text.split(",");
+            for(int i = 0; i < timeData.length; i++) {
+                Log.d(TAG, timeData[i]);
+            }
         }
         catch (IOException e) {
             e.printStackTrace();
