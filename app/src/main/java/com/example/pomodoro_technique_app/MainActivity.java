@@ -19,14 +19,15 @@ import java.util.TimerTask;
 import java.nio.file.Files;
 
 public class MainActivity extends AppCompatActivity {
+
     //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE;
-    public int workPeriod = 25 * 60000;
-    public int breakPeriodShort = 10 * 60000;
-    public int breakPeriodLong = 30 * 60000;
-    public int postPauseTime = 0;
-    public String[] pausedTimeVal;
-    public boolean timerPaused = false;
-    public boolean timerReset = false;
+    private int workPeriod = 25 * 60000;
+    private int breakPeriodShort = 10 * 60000;
+    private int breakPeriodLong = 30 * 60000;
+    private int postPauseTime = 0;
+    private String[] pausedTimeVal;
+    private boolean timerPaused = false;
+    private boolean timerReset = false;
     private static final String TAG = "moizTag";
 
     @Override
