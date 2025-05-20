@@ -2,21 +2,15 @@ package com.example.pomodoro_technique_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.nio.file.Files;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -143,36 +137,10 @@ public class MainActivity extends AppCompatActivity {
        timerReset = true;
     }
 
-    public void readFileTest(View view) {
-        AssetManager assetManager = getAssets();
-        InputStream input;
-        int size = -1;
-        int readOutput = 0;
-        try {
-            input = assetManager.open("time_data.csv");
-            while(readOutput != -1){
-                size ++;
-                readOutput = input.read();
-            }
-
-            input = assetManager.open("time_data.csv");
-            byte[] buffer = new byte[size];
-            input.read(buffer);
-            input.close();
-            String text = new String(buffer);
-
-            Log.d(TAG,"total number of chars is "+size);
-            Log.d(TAG,text);
-
-            String[] timeData = text.split(",");
-            for(int i = 0; i < timeData.length; i++) {
-                Log.d(TAG, timeData[i]);
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void readFileTest(View view){
+        RetrieveData file = new RetrieveData(MainActivity.this);
+        file.readFileData();
     }
-
 }
+
 
