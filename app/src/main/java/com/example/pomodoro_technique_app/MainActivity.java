@@ -15,14 +15,17 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE;
-    private int workPeriod = 25 * 60000;
-    private int breakPeriodShort = 10 * 60000;
-    private int breakPeriodLong = 30 * 60000;
+//    private int workPeriod = 25 * 60000;
+//    private int breakPeriodShort = 10 * 60000;
+//    private int breakPeriodLong = 30 * 60000;
+    final int dataPoints = 3;
+    private int[] timerInvervals = new int[dataPoints];
     private int postPauseTime = 0;
     private String[] pausedTimeVal;
     private boolean timerPaused = false;
     private boolean timerReset = false;
     private static final String TAG = "moizTag";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +51,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetTimer(v, timer);
+                timerReset = true;
             }
         });
+        // check if data from files has been read in
+        if(timerInvervals[0] == 0){
+            timerInvervals = readFile(v);
+            Log.d(TAG, "Data imported for first time");
+        }
+
         if(timerPaused && !timerReset){
             //get minutes & seconds then convert to milliseconds
             int minutes = Integer.parseInt(pausedTimeVal[0]) * 60000;
@@ -59,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             timerPaused = false;
         }
         else {
-            startTimer(v, timer, workPeriod);
+            startTimer(v, timer, timerInvervals[0]);
         }
     }
 
@@ -133,13 +143,13 @@ public class MainActivity extends AppCompatActivity {
 
         Button startButton = findViewById(R.id.startButton);
         startButton.setEnabled(true);
-
-       timerReset = true;
     }
 
-    public void readFileTest(View view){
+    public int[] readFile(View view){
         RetrieveData file = new RetrieveData(MainActivity.this);
         file.readFileData();
+        int[] fileData = file.timePeriods;
+        return fileData;
     }
 }
 

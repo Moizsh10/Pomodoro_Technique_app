@@ -10,9 +10,10 @@ import java.io.InputStream;
 import java.io.File;
 
 public class RetrieveData {
-    private int workPeriod;
-    private int shortBreakPeriod;
-    private int longBreakPeriod;
+    //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE
+    // 60000 for Minutes to ms, 1000 for seconds to ms
+    int dataPoints = 3;
+    int[] timePeriods = new int[dataPoints];
     private static final String TAG = "moizTag";
     Context context;
     public RetrieveData(Context nContext){
@@ -37,16 +38,29 @@ public class RetrieveData {
             input.close();
             String text = new String(buffer);
 
-            Log.d(TAG, "total number of chars is " + size);
             Log.d(TAG, text);
 
-            String[] timeData = text.split(",");
+            int j = 0;
+            String[] timeData = text.split("[,\\n]");
+            String readLine;
+            Log.d(TAG, "Starting For Loop");
             for (int i = 0; i < timeData.length; i++) {
-                Log.d(TAG, timeData[i]);
+                Log.d(TAG,"data: " + timeData[i]);
+                readLine = timeData[i].replaceAll("[^0-9]+","").trim();
+                if (!readLine.isEmpty()) {
+                    Log.d(TAG, "Starting data conversion of "+ readLine);
+                    try {
+                        timePeriods[j] = Integer.parseInt(readLine);
+                    }catch (Exception e) {
+                        Log.w(TAG,e.getMessage());
+                    }
+                    j++;
+                    Log.d(TAG, "Data Converted");
+                }
             }
+            Log.d(TAG, "Array timePeriods[] filled with ints");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
