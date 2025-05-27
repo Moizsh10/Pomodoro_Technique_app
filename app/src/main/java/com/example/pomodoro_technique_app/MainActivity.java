@@ -19,7 +19,13 @@ public class MainActivity extends AppCompatActivity {
 //    private int breakPeriodShort = 10 * 60000;
 //    private int breakPeriodLong = 30 * 60000;
     final int dataPoints = 3;
+
+    //[0] will be for work period, [1] will be for short break period, [2] will be for long break period for the following 3 arrays
     private int[] timerInvervals = new int[dataPoints];
+    private int[] trackSessions = {4, 4, 1};
+    private int[] numSessions = new int[3];
+    private int arrayIndex;
+
     private int postPauseTime = 0;
     private String[] pausedTimeVal;
     private boolean timerPaused = false;
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 pausedTimeVal = pauseTimer(v, timer);
                 timerPaused = true;
-                Log.d(TAG, "Minutes: " + pausedTimeVal[0] + " Seconds: " + pausedTimeVal[1]);
+                Log.d(TAG, "Paused at Minutes: " + pausedTimeVal[0] + " Seconds: " + pausedTimeVal[1]);
             }
         });
 
@@ -69,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             timerPaused = false;
         }
         else {
-            startTimer(v, timer, timerInvervals[0]);
+            startTimer(v, timer, timerInvervals[arrayIndex]);
         }
     }
 
