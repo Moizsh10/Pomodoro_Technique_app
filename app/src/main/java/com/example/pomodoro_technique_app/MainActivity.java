@@ -22,9 +22,11 @@ public class MainActivity extends AppCompatActivity {
 
     //[0] will be for work period, [1] will be for short break period, [2] will be for long break period for the following 3 arrays
     private int[] timerInvervals = new int[dataPoints];
-    private int[] trackSessions = {4, 4, 1};
+    final int[] trackSessions = {4, 4, 1};
     private int[] numSessions = new int[3];
-    private int arrayIndex;
+    private int whichTime;
+    private boolean workSession = true;
+    private boolean shortBreak = false;
 
     private int postPauseTime = 0;
     private String[] pausedTimeVal;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         Timer timer = new Timer();
         Button pauseButton = findViewById(R.id.pauseButton);
         Button resetButton = findViewById(R.id.resetButton);
+        whichTime = sessionTracker();
+        Log.d(TAG,"Index: "+whichTime+" chosen");
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // check if data from files has been read in
         if(timerInvervals[0] == 0){
-            timerInvervals = readFile(v);
+            timerInvervals = readFile();
             Log.d(TAG, "Data imported for first time");
         }
 
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             timerPaused = false;
         }
         else {
-            startTimer(v, timer, timerInvervals[arrayIndex]);
+            startTimer(v, timer, timerInvervals[whichTime]);
         }
     }
 
@@ -113,12 +117,14 @@ public class MainActivity extends AppCompatActivity {
                count = count - 1000; // reduce time by one second
                if (count < 0) {
                    displayTime.setText("Timer Finished!");
+                   startButton.setEnabled(true);
                    timer.cancel();
+                   Log.d(TAG,"Timer Finished");
                }
            }
        };
        timer.schedule(task, 0, 1000); // task starts immediately, with pause of 1 second between run cycles
-        Log.d(TAG,"After timer log sent");
+
         timerReset = false;
 
     }
@@ -151,11 +157,41 @@ public class MainActivity extends AppCompatActivity {
         startButton.setEnabled(true);
     }
 
-    public int[] readFile(View view){
+    public int[] readFile(){
         RetrieveData file = new RetrieveData(MainActivity.this);
         file.readFileData();
         int[] fileData = file.timePeriods;
         return fileData;
+    }
+
+    public int sessionTracker() {
+        int index = 0;
+        if (numSessions[0] == trackSessions[0] && numSessions[1] == trackSessions[1] && numSessions[2] == trackSessions[2]) {
+            workSession = true;
+            shortBreak = false;
+            for (int i = 0; i < 3; i++) {
+                numSessions[i] = 0;
+            }
+            index = 0;
+        } else if(numSessions[0] == trackSessions[0] && numSessions[1] == trackSessions[1]){
+            workSession = false;
+            shortBreak = true;
+            numSessions[2]++;
+            index = 2;
+
+        } else if (workSession && numSessions[0] < trackSessions[0]) {
+            workSession = true;
+            shortBreak = false;
+            numSessions[0]++;
+            index = 0;
+        } else if (shortBreak && numSessions[1] < trackSessions[1]){
+            workSession = true;
+            shortBreak = false;
+            numSessions[1]++;
+            index = 1;
+        }
+
+        return index;
     }
 }
 
