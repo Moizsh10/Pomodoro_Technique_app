@@ -4,4 +4,5 @@
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="reset">Reset</string>
+    <string name="session">Type of Session</string>
 </resources>
