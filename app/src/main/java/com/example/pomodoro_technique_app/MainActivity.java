@@ -28,28 +28,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void startTimer(View v){
         try {
+            findViewById(R.id.pauseButton).setEnabled(true);
+            findViewById(R.id.resetButton).setEnabled(true);
             state.start(v);
-            Log.d(TAG,"clicked start");
         } catch (Exception e) {
-        Log.d(TAG,"Main Activity error: "+ e.getMessage());
+        Log.d(TAG,"Main Activity start error: "+ e.getMessage());
         }
     }
 
     public void pauseTimer(View v){
         try {
             state.pause(v);
-            Log.d(TAG,"clicked pause");
         } catch (Exception e) {
-        Log.d(TAG,"Main Activity error: "+ e.getMessage());
+        Log.d(TAG,"Main Activity pause error: "+ e.getMessage());
         }
     }
 
     public void resetTimer(View v){
         try {
             state.reset(v);
-            Log.d(TAG,"clicked reset");
         } catch (Exception e) {
-            Log.d(TAG,"Main Activity error: "+ e.getMessage());
+            Log.d(TAG,"Main Activity reset error: "+ e.getMessage());
         }
     }
 

@@ -38,12 +38,14 @@ public class StateMachine{
     private String[] pausedTimeVal;
     private boolean timerPaused = false;
     private boolean timerReset = false;
+    private Timer currentTimer;
     private static final String TAG = "moizTag";
     public void machine(int type) {
         Timer timer = new Timer();
-        if(!timerPaused) {
+        if(!timerPaused && !timerReset){
             whichIndex = sessionTracker();
         }
+
         Log.d(TAG,"Index: "+ whichIndex +" chosen");
 
         // check if data from files has been read in
@@ -60,7 +62,6 @@ public class StateMachine{
                     int seconds = Integer.parseInt(pausedTimeVal[1]) * 1000; // Multiply by 1000 to convert seconds to milliseconds
                     postPauseTime = minutes+seconds;
                     startTimer(timer,postPauseTime);
-                    timerPaused = false;
                     Log.d(TAG, "Starting from a pause");
                 } else {
                     try {
@@ -70,18 +71,19 @@ public class StateMachine{
                         Log.d(TAG,"Start timer method: "+e.getMessage());
                     }
                 }
-
                 break;
-            case 2:
-                pausedTimeVal = pauseTimer(timer);
-                timerPaused = true;
 
+            case 2:
+                pausedTimeVal = pauseTimer(currentTimer);
+                timer.cancel(); // get rid of unnecessary newly created timer
                 Log.d(TAG, "Paused at Minutes: " + pausedTimeVal[0] + " Seconds: " + pausedTimeVal[1]);
                 break;
+
             case 3:
-                resetTimer(timer);
-                timerReset = true;
+                resetTimer(currentTimer);
+                timer.cancel(); // get rid of unnecessary newly created timer
                 break;
+
             default:
         }
     }
@@ -97,6 +99,7 @@ public class StateMachine{
 
     public void pause(View pause){
         try {
+            timerPaused = true;
             machine(2);
         } catch (Exception e) {
             Log.d(TAG,"State Machine pause: "+e.getMessage());
@@ -105,6 +108,7 @@ public class StateMachine{
 
     public void reset(View reset){
         try {
+            timerReset = true;
             machine(3);
         } catch (Exception e) {
             Log.d(TAG,"State Machine reset: "+e.getMessage());
@@ -112,6 +116,9 @@ public class StateMachine{
     }
 
     public void startTimer(Timer timer, int timeLen) {
+        currentTimer = timer;
+        timerPaused = false;
+        timerReset = false;
 
         Log.d(TAG,"Start Button clicked");
         // Disable start button
