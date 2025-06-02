@@ -5,4 +5,7 @@
     <string name="pause">Pause</string>
     <string name="reset">Reset</string>
     <string name="session">Type of Session</string>
+    <string name="work">Work Session</string>
+    <string name="short_break">Short Break</string>
+<!--    <string name="long_break">Long Break</string>-->
 </resources>

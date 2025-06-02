@@ -10,15 +10,14 @@ import java.io.InputStream;
 import java.io.File;
 
 public class RetrieveData {
+    Context context;
+    public RetrieveData(Context nContext){this.context = nContext;}
     //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE
     // 60000 for Minutes to ms, 1000 for seconds to ms
     int dataPoints = 3;
     int[] timePeriods = new int[dataPoints];
     private static final String TAG = "moizTag";
-    Context context;
-    public RetrieveData(Context nContext){
-        this.context = nContext;
-    }
+
     public void readFileData() {
         AssetManager assetManager = context.getAssets();
         InputStream input;
@@ -52,7 +51,7 @@ public class RetrieveData {
                     try {
                         timePeriods[j] = Integer.parseInt(readLine);
                     }catch (Exception e) {
-                        Log.w(TAG,e.getMessage());
+                        Log.w(TAG,"Read Data error: " + e.getMessage());
                     }
                     j++;
 //                    Log.d(TAG, "Data Converted");
