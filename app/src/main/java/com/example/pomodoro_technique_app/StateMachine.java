@@ -10,16 +10,13 @@ import android.widget.TextView;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class StateMachine{
     Context context;
     Activity activity;
     public StateMachine(Context nContext, Activity nActivity) {
         this.context = nContext;
-        activity = nActivity;
+        this.activity = nActivity;
     }
     //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE;
 //    private int workPeriod = 25 * 60000;
@@ -31,6 +28,7 @@ public class StateMachine{
     private int[] timerInvervals = new int[dataPoints];
     final int[] trackSessions = {4, 4, 1};
     private int[] numSessions = new int[3];
+    //***************************************************
     private int whichIndex;
     private boolean shortBreak = false;
     private boolean workSession = true;
@@ -39,6 +37,7 @@ public class StateMachine{
     private boolean timerPaused = false;
     private boolean timerReset = false;
     private Timer currentTimer;
+    private PlayAudio alarm;
     private static final String TAG = "moizTag";
     public void machine(int type) {
         Timer timer = new Timer();
@@ -50,7 +49,7 @@ public class StateMachine{
 
         // check if data from files has been read in
         if(timerInvervals[0] == 0){
-            timerInvervals = readFile();
+            timerInvervals = initData();
             Log.d(TAG, "Data imported for first time");
         }
 
@@ -111,7 +110,7 @@ public class StateMachine{
             timerReset = true;
             machine(3);
         } catch (Exception e) {
-            Log.d(TAG,"State Machine reset: "+e.getMessage());
+            Log.d(TAG,"State Machine reset: "+ e.getMessage());
         }
     }
 
@@ -153,6 +152,7 @@ public class StateMachine{
                     try {
                         displayTime.setText("Timer Finished!");
                         timer.cancel();
+                        alarm.playSound();
                         activity.runOnUiThread(new Runnable() {
 
                             @Override
@@ -203,10 +203,13 @@ public class StateMachine{
         startButton.setEnabled(true);
     }
 
-    public int[] readFile(){
+    //Initialize data like file info and set up audio files
+    public int[] initData(){
         RetrieveData file = new RetrieveData(context);
         file.readFileData();
         int[] fileData = file.timePeriods;
+
+        alarm = new PlayAudio(context);
         return fileData;
     }
 
@@ -253,6 +256,7 @@ public class StateMachine{
 
         return index;
     }
+
 
 
 }

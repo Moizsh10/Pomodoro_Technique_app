@@ -2,6 +2,9 @@ package com.example.pomodoro_technique_app;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.media.AudioAttributes;
+import android.media.AudioFormat;
+import android.media.AudioTrack;
 import android.util.Log;
 import android.view.View;
 
@@ -37,7 +40,7 @@ public class RetrieveData {
             input.close();
             String text = new String(buffer);
 
-            Log.d(TAG, text);
+//            Log.d(TAG, text);
 
             int j = 0;
             String[] timeData = text.split("[,\\n]");
