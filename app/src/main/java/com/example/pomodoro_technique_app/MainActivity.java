@@ -22,14 +22,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "moizTag";
     Context mainContext = MainActivity.this;
     Activity mainActivity = MainActivity.this;
+    StateMachine state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        state = new StateMachine(mainContext, mainActivity);
     }
-
-    StateMachine state = new StateMachine(mainContext, mainActivity);
 
     public void startTimer(View v) {
         try {

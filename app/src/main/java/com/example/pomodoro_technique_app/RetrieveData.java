@@ -2,15 +2,9 @@ package com.example.pomodoro_technique_app;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.media.AudioAttributes;
-import android.media.AudioFormat;
-import android.media.AudioTrack;
 import android.util.Log;
-import android.view.View;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.File;
 
 public class RetrieveData {
     Context context;

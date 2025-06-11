@@ -5,17 +5,12 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
-import android.provider.MediaStore;
-import android.util.Log;
-
-import androidx.appcompat.app.AppCompatActivity;
+import java.io.IOException;
 
 public class PlayAudio {
-
-    private static final String TAG = "moizTag";
     Context context;
     public PlayAudio(Context nContext){this.context = nContext;}
-
+    private static final String TAG = "moizTag";
     AudioAttributes audioAttributes = new AudioAttributes.Builder()
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
             .setUsage(AudioAttributes.USAGE_ALARM)
@@ -25,7 +20,21 @@ public class PlayAudio {
             .setMaxStreams(1)
             .setAudioAttributes(audioAttributes)
             .build();
-    int soundID = alarm.load(context, R.raw.twin_bell_alarm_short, 1);
+    int soundID;
+    public void loadSound(){
+        AssetManager am = context.getAssets();
+        AssetFileDescriptor soundName;
+
+        {
+            try {
+                soundName = am.openFd("twin_bell_alarm_short.mp3");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        soundID = alarm.load(soundName, 1);
+    }
 
     public void playSound() {
         alarm.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
