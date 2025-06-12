@@ -56,31 +56,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Main Activity reset error: " + e.getMessage());
         }
     }
-
-    public void testMethod(View v) {
-        AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .setUsage(AudioAttributes.USAGE_ALARM)
-                .build();
-
-        SoundPool alarm = new SoundPool.Builder()
-                .setMaxStreams(2)
-                .setAudioAttributes(audioAttributes)
-                .build();
-        int soundID = alarm.load(this, R.raw.twin_bell_alarm_short, 1);
-
-        alarm.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                playAudio(alarm,soundID);
-            }
-        });
-
-    }
-
-    public void playAudio(SoundPool sp, int soundID) {
-        sp.play(soundID, 1, 1, 1, 0, 1);
-    }
 }
 
 

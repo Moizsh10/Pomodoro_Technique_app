@@ -14,14 +14,6 @@ import java.util.TimerTask;
 public class StateMachine{
     Context context;
     Activity activity;
-    public StateMachine(Context nContext, Activity nActivity) {
-        this.context = nContext;
-        this.activity = nActivity;
-    }
-    //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE;
-//    private int workPeriod = 25 * 60000;
-//    private int breakPeriodShort = 10 * 60000;
-//    private int breakPeriodLong = 30 * 60000;
     final int dataPoints = 3;
 
     //[0] will be for work period, [1] will be for short break period, [2] will be for long break period for the following 3 arrays
@@ -29,6 +21,17 @@ public class StateMachine{
     final int[] trackSessions = {4, 4, 1};
     private int[] numSessions = new int[3];
     //***************************************************
+
+    public StateMachine(Context nContext, Activity nActivity) {
+        this.context = nContext;
+        this.activity = nActivity;
+        timerInvervals = initData(nContext);
+    }
+    //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE;
+//    private int workPeriod = 25 * 60000;
+//    private int breakPeriodShort = 10 * 60000;
+//    private int breakPeriodLong = 30 * 60000;
+
     private int whichIndex;
     private boolean shortBreak = false;
     private boolean workSession = true;
@@ -46,12 +49,6 @@ public class StateMachine{
         }
 
         Log.d(TAG,"Index: "+ whichIndex +" chosen");
-
-        // check if data from files has been read in
-        if(timerInvervals[0] == 0){
-            timerInvervals = initData();
-            Log.d(TAG, "Data imported for first time");
-        }
 
         switch(type) {
             case 1:
@@ -204,11 +201,11 @@ public class StateMachine{
     }
 
     //Initialize data like file info and set up audio files
-    public int[] initData(){
-        RetrieveData file = new RetrieveData(context);
+    public int[] initData(Context aContext){
+        RetrieveData file = new RetrieveData(aContext);
         file.readFileData();
         int[] fileData = file.timePeriods;
-        alarm = new PlayAudio(context);
+        alarm = new PlayAudio(aContext);
         alarm.loadSound();
         return fileData;
     }
