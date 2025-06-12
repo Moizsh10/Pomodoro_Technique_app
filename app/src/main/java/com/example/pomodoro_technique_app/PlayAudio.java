@@ -25,24 +25,23 @@ public class PlayAudio {
         AssetManager am = context.getAssets();
         AssetFileDescriptor soundName;
 
-        {
-            try {
-                soundName = am.openFd("twin_bell_alarm_short.mp3");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            soundName = am.openFd("twin_bell_alarm_short.mp3");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         soundID = alarm.load(soundName, 1);
     }
 
     public void playSound() {
-        alarm.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                alarm.play(soundID, 1, 1, 1, 0, 1);
-            }
-        });
+//        alarm.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+//            @Override
+//            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+//                alarm.play(soundID, 1, 1, 1, 0, 1);
+//            }
+//        });
+        alarm.play(soundID, 1, 1, 1, 0, 1);
     }
 
 }

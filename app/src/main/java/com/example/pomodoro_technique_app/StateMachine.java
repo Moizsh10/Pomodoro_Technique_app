@@ -37,7 +37,7 @@ public class StateMachine{
     private boolean timerPaused = false;
     private boolean timerReset = false;
     private Timer currentTimer;
-    PlayAudio alarm = new PlayAudio(context);
+    PlayAudio alarm;
     private static final String TAG = "moizTag";
     public void machine(int type) {
         Timer timer = new Timer();
@@ -152,7 +152,7 @@ public class StateMachine{
                     try {
                         displayTime.setText("Timer Finished!");
                         timer.cancel();
-//                        alarm.playSound();
+                        alarm.playSound();
                         activity.runOnUiThread(new Runnable() {
 
                             @Override
@@ -208,6 +208,7 @@ public class StateMachine{
         RetrieveData file = new RetrieveData(context);
         file.readFileData();
         int[] fileData = file.timePeriods;
+        alarm = new PlayAudio(context);
         alarm.loadSound();
         return fileData;
     }
