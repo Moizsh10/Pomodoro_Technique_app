@@ -7,18 +7,18 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class RetrieveData {
+    //Time periods are in format MINUTES/SECONDS * MILLISECOND CONVERSION VALUE
+    // 60000 for Minutes to ms, 1000 for seconds to ms
     Context context;
     int dataPoints;
     public RetrieveData(Context nContext, int dataPoints){
         this.context = nContext;
         this.dataPoints = dataPoints;
     }
-    //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE
-    // 60000 for Minutes to ms, 1000 for seconds to ms
-    int[] timePeriods = new int[3];
+
     private static final String TAG = "moizTag";
 
-    public void readFileData() {
+    public void readFileData(int[] timePeriods) {
         AssetManager assetManager = context.getAssets();
         InputStream input;
         int size = -1;

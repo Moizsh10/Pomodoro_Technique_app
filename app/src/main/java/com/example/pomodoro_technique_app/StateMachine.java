@@ -202,8 +202,7 @@ public class StateMachine{
     //Initialize data like file info and set up audio files
     public void initData(Context aContext){
         RetrieveData file = new RetrieveData(aContext, dataPoints);
-        file.readFileData();
-        timerInvervals = file.timePeriods;
+        file.readFileData(timerInvervals);
         alarm = new PlayAudio(aContext);
     }
 
