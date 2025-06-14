@@ -9,18 +9,21 @@ import java.io.IOException;
 
 public class PlayAudio {
     Context context;
-    public PlayAudio(Context nContext){this.context = nContext;}
     private static final String TAG = "moizTag";
     AudioAttributes audioAttributes = new AudioAttributes.Builder()
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
             .setUsage(AudioAttributes.USAGE_ALARM)
             .build();
-
     SoundPool alarm = new SoundPool.Builder()
             .setMaxStreams(1)
             .setAudioAttributes(audioAttributes)
             .build();
     int soundID;
+    public PlayAudio(Context nContext){
+        this.context = nContext;
+        loadSound();
+    }
+
     public void loadSound(){
         AssetManager am = context.getAssets();
         AssetFileDescriptor soundName;

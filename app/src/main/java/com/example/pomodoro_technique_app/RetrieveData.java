@@ -8,11 +8,14 @@ import java.io.InputStream;
 
 public class RetrieveData {
     Context context;
-    public RetrieveData(Context nContext){this.context = nContext;}
+    int dataPoints;
+    public RetrieveData(Context nContext, int dataPoints){
+        this.context = nContext;
+        this.dataPoints = dataPoints;
+    }
     //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE
     // 60000 for Minutes to ms, 1000 for seconds to ms
-    int dataPoints = 3;
-    int[] timePeriods = new int[dataPoints];
+    int[] timePeriods = new int[3];
     private static final String TAG = "moizTag";
 
     public void readFileData() {

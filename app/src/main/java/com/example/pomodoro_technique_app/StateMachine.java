@@ -16,17 +16,16 @@ public class StateMachine{
     Activity activity;
     final int dataPoints = 3;
 
+    public StateMachine(Context nContext, Activity nActivity) {
+        this.context = nContext;
+        this.activity = nActivity;
+    }
+
     //[0] will be for work period, [1] will be for short break period, [2] will be for long break period for the following 3 arrays
     private int[] timerInvervals = new int[dataPoints];
     final int[] trackSessions = {4, 4, 1};
     private int[] numSessions = new int[3];
     //***************************************************
-
-    public StateMachine(Context nContext, Activity nActivity) {
-        this.context = nContext;
-        this.activity = nActivity;
-        timerInvervals = initData(nContext);
-    }
     //Time periods are in format MINUTES * MILLISECOND CONVERSION VALUE;
 //    private int workPeriod = 25 * 60000;
 //    private int breakPeriodShort = 10 * 60000;
@@ -201,13 +200,11 @@ public class StateMachine{
     }
 
     //Initialize data like file info and set up audio files
-    public int[] initData(Context aContext){
-        RetrieveData file = new RetrieveData(aContext);
+    public void initData(Context aContext){
+        RetrieveData file = new RetrieveData(aContext, dataPoints);
         file.readFileData();
-        int[] fileData = file.timePeriods;
+        timerInvervals = file.timePeriods;
         alarm = new PlayAudio(aContext);
-        alarm.loadSound();
-        return fileData;
     }
 
     public int sessionTracker() {

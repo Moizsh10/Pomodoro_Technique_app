@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         state = new StateMachine(mainContext, mainActivity);
+        state.initData(mainContext);
     }
 
     public void startTimer(View v) {
