@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
@@ -56,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d(TAG, "Main Activity reset error: " + e.getMessage());
         }
+    }
+
+    public void activityChange(View v) {
+        Intent i = new Intent(mainContext, CustomSettingsActivity.class);
+        startActivity(i);
+
     }
 }
 

@@ -204,6 +204,7 @@ public class StateMachine{
         RetrieveData file = new RetrieveData(aContext, dataPoints);
         file.readFileData(timerInvervals);
         alarm = new PlayAudio(aContext);
+        alarm.loadSound();
     }
 
     public int sessionTracker() {

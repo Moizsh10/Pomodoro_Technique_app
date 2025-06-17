@@ -7,5 +7,6 @@
     <string name="session">Type of Session</string>
     <string name="work">Work Session</string>
     <string name="short_break">Short Break</string>
+    <string name="settings">Settings</string>
 <!--    <string name="long_break">Long Break</string>-->
 </resources>

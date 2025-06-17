@@ -21,7 +21,6 @@ public class PlayAudio {
     int soundID;
     public PlayAudio(Context nContext){
         this.context = nContext;
-        loadSound();
     }
 
     public void loadSound(){
