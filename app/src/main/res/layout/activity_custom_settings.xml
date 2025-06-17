@@ -6,43 +6,43 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/editTextShort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Entire Time in Minutes"
+        android:hint="Entire Time in Minutes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextWork" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/editTextWork"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="175dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Enter Time in Minutes"
+        android:hint="Enter Time in Minutes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/editTextLong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Enter Time in Minutes"
+        android:hint="Enter Time in Minutes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextShort" />
 
     <TextView
         android:id="@+id/textView"
@@ -51,7 +51,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginBottom="16dp"
         android:text="Work Session Length"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
+        app:layout_constraintBottom_toTopOf="@+id/editTextWork"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -61,7 +61,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginBottom="16dp"
         android:text="Short Break Length"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText2"
+        app:layout_constraintBottom_toTopOf="@+id/editTextShort"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -71,7 +71,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginBottom="16dp"
         android:text="Long Break Length"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText3"
+        app:layout_constraintBottom_toTopOf="@+id/editTextLong"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLong" />
 
     <Button
         android:id="@+id/settingsReset"

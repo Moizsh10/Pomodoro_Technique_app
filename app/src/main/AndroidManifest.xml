@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Pomodoro_Technique_app"
         tools:targetApi="31">
         <activity
+            android:name=".CustomSettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
