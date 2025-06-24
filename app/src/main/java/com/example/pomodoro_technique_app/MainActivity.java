@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void activityChange(View v) {
+    public void activityChangeSettings(View v) {
         Intent i = new Intent(mainContext, CustomSettingsActivity.class);
         startActivity(i);
 
