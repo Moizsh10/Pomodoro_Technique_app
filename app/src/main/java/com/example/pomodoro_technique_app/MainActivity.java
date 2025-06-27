@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void activityChangeSettings(View v) {
         Intent i = new Intent(mainContext, CustomSettingsActivity.class);
+//        i.putExtra("DATA", state.dataPoints);
         startActivity(i);
 
     }
