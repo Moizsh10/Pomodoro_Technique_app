@@ -1,0 +1,4 @@
+# Times are defined in milliseconds
+work_period = 2000
+short_break_period = 1000
+long_break_period = 3000
