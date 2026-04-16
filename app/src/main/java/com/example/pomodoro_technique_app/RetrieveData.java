@@ -34,14 +34,14 @@ public class RetrieveData {
         int size = -1;
         int readOutput = 0;
         try {
-            InputStream input = context.getResources().openRawResource(R.raw.test_data1);
+            InputStream input = context.getResources().openRawResource(R.raw.default_time_data);
             while (readOutput != -1) {
                 size++;
                 readOutput = input.read();
             }
             input.close();
 
-            input = context.getResources().openRawResource(R.raw.test_data1);
+            input = context.getResources().openRawResource(R.raw.default_time_data);
             byte[] buffer = new byte[size];
             input.read(buffer);
             input.close();
